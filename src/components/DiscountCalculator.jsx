@@ -56,8 +56,8 @@ function DiscountCalculator() {
   const resetInputs = () => {
     setPriceBeforeDiscount("");
     setDiscountPercentage("");
-    setPriceAfterDiscount("0.00");
-    setSavedDiscount("0.00");
+    setPriceAfterDiscount("$ 0.00");
+    setSavedDiscount("$ 0.00");
   };
 
   return (
