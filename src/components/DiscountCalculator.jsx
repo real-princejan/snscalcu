@@ -31,9 +31,29 @@ function DiscountCalculator() {
           currency: "USD",
         }))
       );
+      toast.success("Discounted successfully!");
     } else {
-      toast.error("Please input valid numbers");
+      toast.error("Please input numbers");
     }
+  };
+
+  const handlePriceBeforeDiscountChange = (e) => {
+    setPriceBeforeDiscount(
+      formatInputValue(e.target.value.replace(/[^0-9.]/g, ""))
+    );
+  };
+
+  const handleDiscountPercentageChange = (e) => {
+    setDiscountPercentage(
+      formatInputValue(e.target.value.replace(/[^0-9.]/g, ""))
+    );
+  };
+
+  const resetInputs = () => {
+    setPriceBeforeDiscount("");
+    setDiscountPercentage("");
+    setPriceAfterDiscount("0.00");
+    setSavedDiscount("0.00");
   };
 
   return (
@@ -44,7 +64,7 @@ function DiscountCalculator() {
       <div
         className=" border-pink-300 p-8 rounded-lg shadow-lg"
         style={{
-          background: "rgba( 254, 227, 255, 0.6)",
+          background: "rgba( 255, 245, 255, 0.6)",
           boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
           backdropFilter: "blur(6.5px)",
           WebkitBackdropFilter: "blur(6.5px)",
@@ -62,13 +82,13 @@ function DiscountCalculator() {
             Price before discount:
           </label>
           <input
-            type="text" // Change type to text
+            type="text"
             id="priceBeforeDiscount"
             className="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-pink-300"
-            value={formatInputValue(priceBeforeDiscount)}
-            placeholder="$"
+            value={priceBeforeDiscount}
+            placeholder="$ 0.00"
             required
-            onChange={(e) => setPriceBeforeDiscount(e.target.value.replace(/[^0-9.]/g, ""))}
+            onChange={handlePriceBeforeDiscountChange}
           />
         </div>
         <div className="mb-4">
@@ -79,21 +99,29 @@ function DiscountCalculator() {
             Discount percentage:
           </label>
           <input
-            type="text" // Change type to text
+            type="text"
             id="discountPercentage"
             className="mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-pink-200"
-            value={formatInputValue(discountPercentage)}
+            value={discountPercentage}
             placeholder="%"
             required
-            onChange={(e) => setDiscountPercentage(e.target.value.replace(/[^0-9.]/g, ""))}
+            onChange={handleDiscountPercentageChange}
           />
         </div>
-        <button
-          className="bg-pink-500 text-white px-4 py-2 rounded-md hover:bg-pink-600"
-          onClick={calculateDiscount}
-        >
-          Calculate
-        </button>
+        <div className="flex space-x-4">
+          <button
+            className="bg-pink-500 text-white px-4 py-2 rounded-md hover:bg-pink-600"
+            onClick={calculateDiscount}
+          >
+            Calculate
+          </button>
+          <button
+            className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
+            onClick={resetInputs}
+          >
+            Reset
+          </button>
+        </div>
         <div className="mt-4 font-bold">
           <p className="">
             Price after discount: <br />{" "}
