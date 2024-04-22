@@ -5,8 +5,8 @@ import { toast } from "react-toastify";
 function DiscountCalculator() {
   const [priceBeforeDiscount, setPriceBeforeDiscount] = useState("");
   const [discountPercentage, setDiscountPercentage] = useState("");
-  const [priceAfterDiscount, setPriceAfterDiscount] = useState("0.00");
-  const [savedDiscount, setSavedDiscount] = useState("0.00");
+  const [priceAfterDiscount, setPriceAfterDiscount] = useState("$ 0.00");
+  const [savedDiscount, setSavedDiscount] = useState("$ 0.00");
 
   const formatInputValue = (value) => {
     return value.toLocaleString("en-US");
@@ -20,16 +20,20 @@ function DiscountCalculator() {
       const discountAmount = (price * discount) / 100;
       const discountedPrice = price - discountAmount;
       setPriceAfterDiscount(
-        formatInputValue(discountedPrice.toLocaleString("en-US", {
-          style: "currency",
-          currency: "USD",
-        }))
+        formatInputValue(
+          discountedPrice.toLocaleString("en-US", {
+            style: "currency",
+            currency: "USD",
+          })
+        )
       );
       setSavedDiscount(
-        formatInputValue(discountAmount.toLocaleString("en-US", {
-          style: "currency",
-          currency: "USD",
-        }))
+        formatInputValue(
+          discountAmount.toLocaleString("en-US", {
+            style: "currency",
+            currency: "USD",
+          })
+        )
       );
       toast.success("Discounted successfully!");
     } else {
@@ -131,7 +135,7 @@ function DiscountCalculator() {
           </p>
           <p>
             Saved discount: <br />{" "}
-            <span className="text-red-700 text-[25px]">{savedDiscount}</span>
+            <span className="text-red-700 text-[25px]"> {savedDiscount}</span>
           </p>
         </div>
       </div>
